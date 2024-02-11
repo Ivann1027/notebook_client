@@ -1,11 +1,25 @@
+import { useEffect } from 'react'
+import { useGetAllNotesQuery } from '../services/notesApi'
 import '../styles/main.scss'
 import { FolderT, NoteT } from '../types/types'
 import Folder from './Folder'
 
 function Sidebar() {
 
+	const { data: notes } = useGetAllNotesQuery(String(3))
+
+	useEffect(() => {
+		if (notes) console.log(notes)
+	}, [])
+
 	return (
 		<div className='sidebar'>
+			<div>All notes</div>
+			<ul>
+				{notes && notes.map((note: NoteT) => (
+					<li key={note.id}>{note.title}</li>
+				))}
+			</ul>
 			{folders.map(folder => (
 				<Folder key={folder.id} folder={folder} />
 			))}
