@@ -5,7 +5,7 @@ import Main from "./components/Main"
 
 function App() {
   
-	const [isUserAuthorized, setIsUserAuthorized] = useState<boolean>(true)
+	const [isUserAuthorized, setIsUserAuthorized] = useState<boolean>(false)
 
   return (
 		<div className="app">

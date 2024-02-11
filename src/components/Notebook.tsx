@@ -1,11 +1,16 @@
+import { ReactNode } from 'react'
 import '../styles/main.scss'
 
-function Notebook() {
+interface NotebookProps {
+	children: ReactNode
+}
+
+const Notebook: React.FC<NotebookProps> = ({children}) => {
 
 
 	return (
 		<div className='notebook'>
-			This is Notebook 
+			{children}
 		</div>
 	)
 }

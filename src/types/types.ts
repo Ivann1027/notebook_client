@@ -9,6 +9,12 @@ export type AuthorizedUser = {
 	}
 }
 
+export type UserReq = {
+	name: string
+	email: string
+	password: string
+}
+
 export type NoteT = {
 	id: number
 	title: string
