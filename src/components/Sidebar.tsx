@@ -1,15 +1,26 @@
+import { useContext } from 'react'
 import { useGetAllNotesQuery } from '../services/notesApi'
 import '../styles/main.scss'
 import { FolderT, NoteT } from '../types/types'
 import Folder from './Folder'
 import { Link } from 'react-router-dom'
+import { CustomContext } from '../context/UserContext'
 
 function Sidebar() {
 
 	const { data: notes } = useGetAllNotesQuery(String(3))
+	const {setUser, emptyUser} = useContext(CustomContext)
+
+	const logout = () => {
+		localStorage.removeItem('currentUser')
+		setUser(emptyUser)
+	}
 
 	return (
 		<div className='sidebar'>
+			<div>
+				<button onClick={logout}>Выйти</button>
+			</div>
 			<div>All notes</div>
 			<ul>
 				{notes && notes.map((note: NoteT) => (

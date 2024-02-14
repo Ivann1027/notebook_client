@@ -1,7 +1,8 @@
 import '../../styles/auth.scss'
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent, useContext } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useLoginMutation } from '../../services/authApi'
+import { CustomContext } from '../../context/UserContext'
 
 const LoginForm = () => {
 
@@ -9,12 +10,15 @@ const LoginForm = () => {
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [isEye, setIsEye] = useState<boolean>(false)
+	const {setUser} = useContext(CustomContext)
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		try {
 			const res = await login({ email, password }).unwrap()
 			console.log(res)
+			localStorage.setItem('currentUser', JSON.stringify(res))
+			setUser(res)
 		} catch (e) {
 			console.log(e)
 		}
