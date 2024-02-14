@@ -3,7 +3,7 @@ import { UserReq } from "../types/types"
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'localhost:5000/auth/' }),
+	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/auth/' }),
 	endpoints: (builder) => ({
 		login: builder.mutation<any, UserReq>({
 			query: (body) => ({
@@ -14,3 +14,5 @@ export const authApi = createApi({
 		})
 	})
 })
+
+export const {useLoginMutation} = authApi

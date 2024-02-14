@@ -10,7 +10,6 @@ export type AuthorizedUser = {
 }
 
 export type UserReq = {
-	name: string
 	email: string
 	password: string
 }

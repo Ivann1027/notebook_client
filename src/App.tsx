@@ -1,6 +1,6 @@
 import { useState } from "react"
 import './styles/index.scss'
-import AuthorizationForm from "./components/AuthorizationForm"
+import AuthorizationForm from "./components/auth/Authorization"
 import Main from "./components/Main"
 
 function App() {
