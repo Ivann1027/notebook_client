@@ -28,8 +28,16 @@ export const foldersApi = createApi({
 				body: { name }
 			}), 
 			invalidatesTags: ['Folders']
+		}),
+		createFolder: builder.mutation<FolderT, { userId: string, name: string }>({
+			query: ({ userId, name }) => ({
+				url: `users/${userId}/folders`,
+				method: 'POST',
+				body: {name}
+			}),
+			invalidatesTags: ['Folders']
 		})
 	})
 })
 
-export const {useGetAllFoldersQuery, useGetFolderQuery, useDeleteFolderMutation, useRenameFolderMutation} = foldersApi
+export const {useGetAllFoldersQuery, useGetFolderQuery, useDeleteFolderMutation, useRenameFolderMutation, useCreateFolderMutation} = foldersApi

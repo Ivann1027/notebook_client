@@ -43,7 +43,7 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
 	return (
 		<div className="folder">
 			<div onClick={() => setIsOpen(!isOpen)} onContextMenu={handleContextMenu} className="folder__name">
-				{showMenu && <FolderMenu x={menuPosition.x} y={menuPosition.y} showMenu={showMenu} setShowMenu={setShowMenu} setIsRenaming={setIsRenaming} folderId={folder.id} />}
+				{showMenu && <FolderMenu x={menuPosition.x} y={menuPosition.y} showMenu={showMenu} setShowMenu={setShowMenu} setIsRenaming={setIsRenaming} userId={user.user.id} folderId={folder.id} />}
 				<span className="folder__icon">{isOpen ? (<FaRegFolderOpen />) : (<FaRegFolder />)}</span>
 				{isRenaming ? (
 					<input onKeyDown={handleKeyEnter} value={newName} onChange={(e: ChangeEvent<HTMLInputElement>) => setNewName(e.target.value)} className="folder__renaming" />

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useCallback, useEffect, MouseEvent, useContext } from 'react'
+import { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react'
 import '../styles/folder.scss'
 import { useDeleteFolderMutation } from '../services/foldersApi'
 import { CustomContext } from '../context/UserContext'
@@ -9,12 +9,12 @@ interface FolderMenuProps {
 	showMenu: boolean
 	setShowMenu: Dispatch<SetStateAction<boolean>>
 	setIsRenaming: Dispatch<SetStateAction<boolean>>
+	userId: number
 	folderId: number
 }
 
-const FolderMenu: FC<FolderMenuProps> = ({ x, y, showMenu, setShowMenu, setIsRenaming, folderId }) => {
+const FolderMenu: FC<FolderMenuProps> = ({ x, y, showMenu, setShowMenu, setIsRenaming, userId, folderId }) => {
 
-	const {user} = useContext(CustomContext)
 	const [deleteFolder, {}] = useDeleteFolderMutation()
 	
 	const closeMenu = useCallback(() => {
@@ -29,7 +29,7 @@ const FolderMenu: FC<FolderMenuProps> = ({ x, y, showMenu, setShowMenu, setIsRen
 	}, [closeMenu, showMenu])
 
 	const handleDelete = () => {
-		deleteFolder({userId: String(user.user.id), folderId: String(folderId)})
+		deleteFolder({userId: String(userId), folderId: String(folderId)})
 	}
 
 	return (
