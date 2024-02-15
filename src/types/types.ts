@@ -1,11 +1,10 @@
 export type AuthorizedUser = {
 	accessToken: string
 	user: {
+		id: number
 		name: string
 		email: string
 		isAuth: boolean
-		folders?: FolderT[]
-		notes?: NoteT[]
 	}
 }
 

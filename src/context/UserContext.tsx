@@ -16,7 +16,7 @@ interface ContextValue {
 
 export const Context: FC<ContextProps> = ({ children }) => {
 	
-	const emptyUser: AuthorizedUser = { accessToken: '', user: { name: '', email: '', isAuth: false } }
+	const emptyUser: AuthorizedUser = { accessToken: '', user: { id: 0, name: '', email: '', isAuth: false } }
 	const [user, setUser] = useState<AuthorizedUser>(emptyUser)
 
 	useEffect(() => {
