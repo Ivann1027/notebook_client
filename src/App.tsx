@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import './styles/index.scss'
 import AuthorizationForm from "./components/auth/Authorization"
 import Main from "./components/Main"
