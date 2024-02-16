@@ -1,7 +1,7 @@
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
 import App from "./App"
 import Notebook from "./components/Notebook"
-import Note from "./components/Note"
+import Note from "./components/Note/Note"
 import Main from "./components/Main"
 
 export const router = createBrowserRouter(

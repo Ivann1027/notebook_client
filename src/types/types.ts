@@ -26,5 +26,5 @@ export type NoteT = {
 export type FolderT = {
 	id: number
 	name: string
-	notes?: NoteT[]
+	notes: NoteT[]
 }

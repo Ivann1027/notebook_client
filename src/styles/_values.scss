@@ -34,3 +34,16 @@
 	padding: 4px 6px;
 	font-size: 14px;
 }
+
+@mixin sidebarNote() {
+	color: #9b9b9b;
+	font-size: 18px;
+	user-select: none;
+	cursor: pointer;
+}
+
+@mixin sidebarIcon() {
+	color: teal;
+	font-size: 14px;
+	margin-right: 10px;
+}

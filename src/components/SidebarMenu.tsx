@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react'
-import '../styles/main.scss'
+import '../styles/sidebar.scss'
 
 interface SidebarMenuProps {
 	x: number

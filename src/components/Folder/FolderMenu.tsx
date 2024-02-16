@@ -1,7 +1,6 @@
 import { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react'
-import '../styles/folder.scss'
-import { useDeleteFolderMutation } from '../services/foldersApi'
-import { CustomContext } from '../context/UserContext'
+import '../../styles/folder.scss'
+import { useDeleteFolderMutation } from '../../services/foldersApi'
 
 interface FolderMenuProps {
 	x: number
@@ -28,14 +27,10 @@ const FolderMenu: FC<FolderMenuProps> = ({ x, y, showMenu, setShowMenu, setIsRen
 		}
 	}, [closeMenu, showMenu])
 
-	const handleDelete = () => {
-		deleteFolder({userId: String(userId), folderId: String(folderId)})
-	}
-
 	return (
 		<div style={{top: y, left: x}} className="folderMenu">
 			<button onClick={() => setIsRenaming(true)}>Переименовать</button>
-			<button onClick={handleDelete} type='button'>Удалить</button>
+			<button onClick={() => deleteFolder({userId: String(userId), folderId: String(folderId)})} type='button'>Удалить</button>
 		</div>
 	)
 }

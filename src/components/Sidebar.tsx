@@ -1,21 +1,23 @@
 import { ChangeEvent, MouseEventHandler, useContext, useState, KeyboardEvent } from 'react'
-import '../styles/main.scss'
-import Folder from './Folder'
+import '../styles/sidebar.scss'
+import Folder from './Folder/Folder'
 import { CustomContext } from '../context/UserContext'
 import { LogoutBtn } from './UI/LogoutBtn/LogoutBtn'
-import AllNotes from './AllNotes'
+import AllNotes from './Note/AllNotes'
 import { useCreateFolderMutation, useGetAllFoldersQuery } from '../services/foldersApi'
 import SidebarMenu from './SidebarMenu'
 
 function Sidebar() {
 
 	const {user, setUser, emptyUser} = useContext(CustomContext)
-	const { data: folders } = useGetAllFoldersQuery(String(user.user.id))
+	const {data: folders} = useGetAllFoldersQuery(String(user.user.id))
 	const [createFolder, {}] = useCreateFolderMutation()
 	const [showMenu, setShowMenu] = useState<boolean>(false)
 	const [menuPosition, setMenuPosition] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
 	const [newFolder, setNewFolder] = useState<string>('')
 	const [isAddingFolder, setIsAddingFolder] = useState<boolean>(false)
+
+	console.log(folders)
 
 	const logout = () => {
 		localStorage.removeItem('currentUser')
@@ -43,13 +45,15 @@ function Sidebar() {
 				<h3 className='sidebar__name'>{user.user.name}</h3>
 				<LogoutBtn onClick={logout} />
 			</div>
-			<div className="sidebar__body" onContextMenu={handleContextMenu}>
+			<div className="sidebar__body">
 				{showMenu && <SidebarMenu x={menuPosition.x} y={menuPosition.y} showMenu={showMenu} setShowMenu={setShowMenu} userId={user.user.id} setIsAddingFolder={setIsAddingFolder} />}
 				<AllNotes />
-				{folders && folders.map(folder => (
-					<Folder key={folder.id} folder={folder} />
-				))}
-				{isAddingFolder && <input onKeyDown={handleKeyEnter} value={newFolder} onChange={(e: ChangeEvent<HTMLInputElement>) => setNewFolder(e.target.value)} className='sidebar__newFolder' />}
+				<div onContextMenu={handleContextMenu} className='sidebar__folders'>
+					{folders && folders.map(folder => (
+						<Folder key={folder.id} folder={folder} />
+					))}
+					{isAddingFolder && <input onKeyDown={handleKeyEnter} value={newFolder} onChange={(e: ChangeEvent<HTMLInputElement>) => setNewFolder(e.target.value)} className='sidebar__newFolder' />}
+				</div>
 			</div>
 		</div>
 	)

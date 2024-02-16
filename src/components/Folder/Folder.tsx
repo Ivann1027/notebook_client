@@ -1,12 +1,11 @@
-import { FolderT } from "../types/types"
+import { FolderT } from "../../types/types"
 import { ChangeEvent, MouseEventHandler, useState, KeyboardEvent, useContext } from "react"
-import '../styles/folder.scss'
+import '../../styles/folder.scss'
 import { FaRegFolder, FaRegFolderOpen } from "react-icons/fa"
-import { IoDocumentTextOutline } from "react-icons/io5"
-import { useNavigate } from "react-router-dom"
 import FolderMenu from "./FolderMenu"
-import { useRenameFolderMutation } from "../services/foldersApi"
-import { CustomContext } from "../context/UserContext"
+import { useRenameFolderMutation } from "../../services/foldersApi"
+import { CustomContext } from "../../context/UserContext"
+import SidebarNote from "../Note/SidebarNote"
 
 interface FolderProps {
 	folder: FolderT
@@ -21,7 +20,6 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
 	const [menuPosition, setMenuPosition] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
 	const [isRenaming, setIsRenaming] = useState<boolean>(false)
 	const [newName, setNewName] = useState<string>(folder.name)
-	const navigate = useNavigate()
 
 	const handleContextMenu: MouseEventHandler = (e) => {
 		e.preventDefault()
@@ -39,10 +37,15 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
 	const handleKeyEnter = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (isRenaming && e.key === 'Enter') saveNewName()
 	}
+	
+	const folderOpen = (folder: FolderT) => {
+		setIsOpen(!isOpen)
+		console.log(folder)
+	}
 
 	return (
 		<div className="folder">
-			<div onClick={() => setIsOpen(!isOpen)} onContextMenu={handleContextMenu} className="folder__name">
+			<div onClick={() => folderOpen(folder)} onContextMenu={handleContextMenu} className="folder__name">
 				{showMenu && <FolderMenu x={menuPosition.x} y={menuPosition.y} showMenu={showMenu} setShowMenu={setShowMenu} setIsRenaming={setIsRenaming} userId={user.user.id} folderId={folder.id} />}
 				<span className="folder__icon">{isOpen ? (<FaRegFolderOpen />) : (<FaRegFolder />)}</span>
 				{isRenaming ? (
@@ -53,9 +56,7 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
 			</div>
 			{isOpen && <ul className="folder__notes">
 				{folder.notes && folder.notes.map(note => (
-					<li onClick={() => navigate(`notes/${note.id}`)} key={note.id}>
-						<span className="folder__note-icon">{<IoDocumentTextOutline />}</span>{note.title}
-					</li>
+					<SidebarNote note={note} key={note.id} />
 				))}
 			</ul>}
 		</div>
