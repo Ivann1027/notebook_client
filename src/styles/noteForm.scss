@@ -1,0 +1,16 @@
+.noteTitle {
+	input {
+		background-color: transparent;
+		color: teal;
+		font-size: 18px;
+		letter-spacing: 1.2px;
+		padding: 5px;
+		&:focus {
+			border-bottom: 1px solid teal;
+		}
+
+		&::placeholder {
+			color: rgba(0, 128, 128, 0.8);
+		}
+	}
+}

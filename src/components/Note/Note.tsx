@@ -15,6 +15,9 @@ const Note = () => {
 
 	return (
 		<div>
+			<div>
+				<button onClick={() => navigate('/notes/createNote')}>Создать</button>
+			</div>
 			{note && 
 				<>
 					<h1>{note.title}</h1>
