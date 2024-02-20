@@ -18,7 +18,7 @@ const BlockControls: FC<BlockControlsProps> = ({editorState, onBlockToggle, bloc
 		.getType()
 
 	return (
-		<div className="RickEditor-controls">
+		<div className="RichEditor-controls">
 			{blockTypes.map(type => (
 				<ControlItem isActive={type.style === blockType} onToggle={onBlockToggle} style={type.style} key={type.label}>
 					{type.label}

@@ -20,8 +20,16 @@ export const notesApi = createApi({
 				method: 'DELETE'
 			}),
 			invalidatesTags: ['Notes']
+		}),
+		createNote: builder.mutation<NoteT, {userId: string, title: string, content: string}>({
+			query: ({ userId, title, content }) => ({
+				url: `users/${userId}/notes`,
+				method: 'POST',
+				body: {title, content}
+			}),
+			invalidatesTags: ['Notes']
 		})
 	}),
 })
 
-export const { useGetAllNotesQuery, useGetNoteQuery, useDeleteNoteMutation } = notesApi
+export const { useGetAllNotesQuery, useGetNoteQuery, useDeleteNoteMutation, useCreateNoteMutation } = notesApi

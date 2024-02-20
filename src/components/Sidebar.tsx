@@ -17,8 +17,6 @@ function Sidebar() {
 	const [newFolder, setNewFolder] = useState<string>('')
 	const [isAddingFolder, setIsAddingFolder] = useState<boolean>(false)
 
-	console.log(folders)
-
 	const logout = () => {
 		localStorage.removeItem('currentUser')
 		setUser(emptyUser)
