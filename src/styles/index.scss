@@ -33,3 +33,26 @@ li {
 	width: 100%;
 	height: 100%;
 }
+
+
+
+blockquote {
+	width: 50%;
+  background: rgb(44, 54, 74);
+  border-left: 10px solid rgb(48, 48, 129);
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+	border-radius: 10px;
+}
+blockquote:before {
+  color: rgba(16, 131, 246, 0.584);
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}

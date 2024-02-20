@@ -4,11 +4,17 @@
 	&__title {
 		font-size: 20px;
 		user-select: none;
+		position: relative;
 			cursor: pointer;
 			span {
 				color: teal;
 				font-size: 20px;
 				margin-right: 10px;
+			}
+			#plus {
+				position: absolute;
+				right: 0;
+				font-size: 30px;
 			}
 	}
 
