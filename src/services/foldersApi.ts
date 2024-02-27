@@ -36,8 +36,17 @@ export const foldersApi = createApi({
 				body: {name}
 			}),
 			invalidatesTags: ['Folders']
+		}),
+		deleteNoteFromFolder: builder.mutation<FolderT, {userId: string, folderId: string, noteId: string}>({
+			query: ({ userId, folderId, noteId }) => ({
+				url: `users/${userId}/folders/${folderId}/notes/${noteId}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['Folder']
 		})
 	})
 })
 
-export const {useGetAllFoldersQuery, useGetFolderQuery, useDeleteFolderMutation, useRenameFolderMutation, useCreateFolderMutation} = foldersApi
+export const {
+	useGetAllFoldersQuery, useGetFolderQuery, useDeleteFolderMutation, useRenameFolderMutation, useCreateFolderMutation, useDeleteNoteFromFolderMutation
+} = foldersApi

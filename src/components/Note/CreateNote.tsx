@@ -16,14 +16,10 @@ const CreateNote = () => {
 		setEditorState(newEditorState)
 	}
 
-	const addNote = (content: string) => {
-		createNote({userId: String(user.user.id), title: title, content: content})
-	}
-
-	const handleClickCreate = () => {
+	const handleClickCreate = async () => {
 		const contentState = editorState?.getCurrentContent()
 		const content = JSON.stringify(convertToRaw(contentState as ContentState))
-		addNote(content)
+		await createNote({userId: String(user.user.id), title: title, content: content})
 	}
 
 	return (

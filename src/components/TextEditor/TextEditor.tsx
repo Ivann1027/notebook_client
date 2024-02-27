@@ -1,8 +1,8 @@
-import { ContentBlock, DraftBlockType, DraftHandleValue, Editor, EditorState, RichUtils } from "draft-js"
+import { ContentBlock, DraftBlockType, Editor, EditorState, Modifier, RichUtils, getDefaultKeyBinding } from "draft-js"
 import 'draft-js/dist/Draft.css'
 import './editorStyles/editorStyles.css'
-import './editorStyles/styleMap.css'
-import { FC, useState } from "react"
+import './editorStyles/editorStyleMap.scss'
+import { FC, useState, KeyboardEvent } from "react"
 import BlockControls from "./BlockControls"
 import { BLOCK_TYPES, INLINE_STYLES } from "./editorSettings"
 import InlineControls from "./InlineControls"
@@ -20,12 +20,26 @@ const TextEditor: FC<TextEditorProps> = ({onEditorStateChange}) => {
 	}
 
 	const handleKeyCommand = (command: string, editorState: EditorState): 'handled' | 'not-handled' => {
-		const newState = RichUtils.handleKeyCommand(editorState, command)
-		if (newState) {
-			onChange(newState)
+		if (command === 'soft-newline') {
+			onChange(RichUtils.insertSoftNewline(editorState))
+			return 'handled'
+		} else if (command === 'split-block') {	
+			const newContentState = Modifier.splitBlock(editorState.getCurrentContent(), editorState.getSelection())
+			const newState = EditorState.push(editorState, newContentState, 'split-block')
+			const newStateWithoutStyle = RichUtils.toggleBlockType(newState, 'unstyled')
+			onChange(newStateWithoutStyle)
 			return 'handled'
 		}
 		return 'not-handled'
+	}
+
+	const keyBindingFn = (e: KeyboardEvent): string | null => {
+		if (e.key === 'Enter' && !e.shiftKey) {
+			return 'split-block'
+		} else if (e.key === 'Enter' && e.shiftKey) {
+			return 'soft-newline'
+		}
+		return getDefaultKeyBinding(e)
 	}
 
 	const toggleBlockType = (blockType: DraftBlockType) => {
@@ -35,18 +49,11 @@ const TextEditor: FC<TextEditorProps> = ({onEditorStateChange}) => {
 		onChange(RichUtils.toggleInlineStyle(editorState, inlineType))
 	}
 
-	const blockStyleFn = (contentBlock: ContentBlock) => {
-		const type = contentBlock.getType()
-		if (type === 'blockquote') return 'customBlockqoute'
-		if (type === 'code-block') return 'customCodeBlock'
-		return ''
-	}
-
 	return (
 		<div>
 			<BlockControls editorState={editorState} onBlockToggle={toggleBlockType} blockTypes={BLOCK_TYPES} />
 			<InlineControls editorState={editorState} onInlineToggle={toggleInlineType} inlineStyles={INLINE_STYLES} />
-			<Editor editorState={editorState} onChange={onChange} handleKeyCommand={handleKeyCommand} blockStyleFn={blockStyleFn} />
+			<Editor editorState={editorState} onChange={onChange} handleKeyCommand={handleKeyCommand} keyBindingFn={keyBindingFn} />
 		</div>
 	)
 }

@@ -24,7 +24,8 @@ function Sidebar() {
 
 	const handleContextMenu: MouseEventHandler = (e) => {
 		e.preventDefault()
-		if (e.button == 2) {
+		const target = e.target as HTMLElement
+		if (e.button == 2 && !target.classList.contains('sidebar__note')) {
 			setMenuPosition({ x: e.clientX, y: e.clientY })
 			setShowMenu(!showMenu)
 		}

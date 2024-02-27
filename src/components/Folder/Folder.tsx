@@ -40,7 +40,6 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
 	
 	const folderOpen = (folder: FolderT) => {
 		setIsOpen(!isOpen)
-		console.log(folder)
 	}
 
 	return (
@@ -56,7 +55,7 @@ const Folder: React.FC<FolderProps> = ({ folder }) => {
 			</div>
 			{isOpen && <ul className="folder__notes">
 				{folder.notes && folder.notes.map(note => (
-					<SidebarNote note={note} key={note.id} />
+					<SidebarNote note={note} key={note.id} folderNote={true} folderId={String(folder.id)} />
 				))}
 			</ul>}
 		</div>

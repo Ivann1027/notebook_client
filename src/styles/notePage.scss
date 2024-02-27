@@ -1,9 +1,12 @@
 .note {
 	&__title {
-
+		color: teal;
+		margin-bottom: 40px;
+		border-bottom: 1px solid teal;
+		padding-bottom: 10px;
 	}
 
 	&__content {
-		
+		overflow: auto;
 	}
 }

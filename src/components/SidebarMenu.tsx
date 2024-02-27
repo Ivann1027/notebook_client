@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react'
+import { Dispatch, FC, SetStateAction, useCallback, useEffect, MouseEvent } from 'react'
 import '../styles/sidebar.scss'
 
 interface SidebarMenuProps {

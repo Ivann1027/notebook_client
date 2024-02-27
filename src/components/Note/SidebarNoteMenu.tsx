@@ -2,19 +2,25 @@ import { Dispatch, FC, SetStateAction, useCallback, useContext, useEffect } from
 import '../../styles/sidebar.scss'
 import { useDeleteNoteMutation } from "../../services/notesApi"
 import { CustomContext } from "../../context/UserContext"
+import { useDeleteNoteFromFolderMutation } from "../../services/foldersApi"
+import { useNavigate } from "react-router-dom"
+import { NoteT } from "../../types/types"
 
 interface SidebarNoteMenuProps {
 	x: number
 	y: number
 	showMenu: boolean
 	setShowMenu: Dispatch<SetStateAction<boolean>>
-	noteId: number
+	note: NoteT
+	folderId: string
 }
 
-const SidebarNoteMenu: FC<SidebarNoteMenuProps> = ({ x, y, showMenu, setShowMenu, noteId}) => {
+const SidebarNoteMenu: FC<SidebarNoteMenuProps> = ({ x, y, showMenu, setShowMenu, note, folderId}) => {
 	
+	const navigate = useNavigate()
 	const {user} = useContext(CustomContext)
-	const [deleteNote, {}] = useDeleteNoteMutation()
+	const [deleteNote, { }] = useDeleteNoteMutation()
+	const [deleteNoteFromFolder, {}] = useDeleteNoteFromFolderMutation() 
 
 	const closeMenu = useCallback(() => {
 		if (showMenu) setShowMenu(false)
@@ -28,8 +34,12 @@ const SidebarNoteMenu: FC<SidebarNoteMenuProps> = ({ x, y, showMenu, setShowMenu
 	}, [closeMenu, showMenu])
 
 	return (
-		<div style={{top: y, left: x}} className="sidebar__menu">
-			<button onClick={() => deleteNote({userId: String(user.user.id), noteId: String(noteId)})}>Удалить</button>
+		<div style={{ top: y, left: x }} className="sidebar__menu">
+			<button onClick={() => navigate(`notes/edit/${String(note.id)}`, {state: {note}})} type="button">Редактировать</button>
+			<button onClick={() => deleteNote({ userId: String(user.user.id), noteId: String(note.id) })}>Удалить</button>
+			{folderId && (
+				<button onClick={() => deleteNoteFromFolder({ userId: String(user.user.id), folderId: folderId, noteId: String(note.id) })}>Удалить из папки</button>
+			)}
 		</div>
 	)
 }

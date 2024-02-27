@@ -7,9 +7,11 @@ import SidebarNoteMenu from './SidebarNoteMenu'
 
 interface SidebarNoteProps {
 	note: NoteT
+	folderNote: boolean
+	folderId: string
 }
 
-const SidebarNote: FC<SidebarNoteProps> = ({ note }) => {
+const SidebarNote: FC<SidebarNoteProps> = ({ note, folderNote, folderId }) => {
 	
 	const navigate = useNavigate()
 	const [showMenu, setShowMenu] = useState<boolean>(false)
@@ -24,8 +26,8 @@ const SidebarNote: FC<SidebarNoteProps> = ({ note }) => {
 	}
 
 	return (
-		<li onClick={() => navigate(`notes/${note.id}`)} onContextMenu={handleContext} className="sidebar__note">
-			{showMenu && <SidebarNoteMenu x={menuPosition.x} y={menuPosition.y} showMenu={showMenu} setShowMenu={setShowMenu} noteId={note.id} />}
+		<li onClick={() => navigate(`notes/${note.id}`, {state: {note}})} onContextMenu={handleContext} className={`sidebar__note ${folderNote ? ' folder-note' : ''}`}>
+			{showMenu && <SidebarNoteMenu x={menuPosition.x} y={menuPosition.y} showMenu={showMenu} setShowMenu={setShowMenu} note={note} folderId={folderId} />}
 			<span className='sidebar__note-icon'><IoDocumentTextOutline /></span>
 			{note.title}
 		</li>
