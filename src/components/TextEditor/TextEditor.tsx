@@ -4,8 +4,9 @@ import './editorStyles/editorStyles.css'
 import './editorStyles/editorStyleMap.scss'
 import { FC, useState, KeyboardEvent } from "react"
 import BlockControls from "./BlockControls"
-import { BLOCK_TYPES, INLINE_STYLES } from "./editorSettings"
+import { BLOCK_TYPES, INLINE_STYLES, TEXT_COLORS } from "./editorSettings"
 import InlineControls from "./InlineControls"
+import ColorControls from "./ColorControls"
 
 interface TextEditorProps {
 	onEditorStateChange: (editorState: EditorState) => void
@@ -48,11 +49,15 @@ const TextEditor: FC<TextEditorProps> = ({onEditorStateChange}) => {
 	const toggleInlineType = (inlineType: string) => {
 		onChange(RichUtils.toggleInlineStyle(editorState, inlineType))
 	}
+	const toggleColor = (color: string) => {
+		onChange(RichUtils.toggleInlineStyle(editorState, 'COLOR-' + color.toUpperCase()))
+	}
 
 	return (
 		<div>
 			<BlockControls editorState={editorState} onBlockToggle={toggleBlockType} blockTypes={BLOCK_TYPES} />
 			<InlineControls editorState={editorState} onInlineToggle={toggleInlineType} inlineStyles={INLINE_STYLES} />
+			<ColorControls editorState={editorState} onColorToggle={toggleColor} colors={TEXT_COLORS} />
 			<Editor editorState={editorState} onChange={onChange} handleKeyCommand={handleKeyCommand} keyBindingFn={keyBindingFn} />
 		</div>
 	)

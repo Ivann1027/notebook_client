@@ -2,6 +2,10 @@ export type TControllStyles = {
 	label: string
 	style: string
 }
+export type IColor = {
+	name: string
+	value: string
+}
 
 const BLOCK_TYPES: TControllStyles[] = [
 	{ label: 'H1', style: 'header-one' },
@@ -23,4 +27,12 @@ const INLINE_STYLES: TControllStyles[] = [
 	{ label: 'Monospace', style: 'CODE' }
 ]
 
-export { BLOCK_TYPES, INLINE_STYLES }
+const TEXT_COLORS: IColor[] = [
+	{ name: 'red', value: 'red' },
+	{ name: 'blue', value: 'blue' },
+	{ name: 'yellow', value: 'yellow' },
+	{ name: 'green', value: 'green' },
+	{ name: 'orange', value: 'orange' }
+]
+
+export { BLOCK_TYPES, INLINE_STYLES, TEXT_COLORS }
