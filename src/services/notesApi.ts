@@ -28,8 +28,16 @@ export const notesApi = createApi({
 				body: {title, content}
 			}),
 			invalidatesTags: ['Notes']
+		}),
+		updateNote: builder.mutation <NoteT, { userId: string, noteId: string, updatedData: {title: string, content: string}}>({
+			query: ({ userId, noteId, updatedData }) => ({
+				url: `users/${userId}/notes/${noteId}`,
+				method: 'PUT',
+				body: updatedData
+			}),
+			invalidatesTags: ['Notes']
 		})
 	}),
 })
 
-export const { useGetAllNotesQuery, useGetNoteQuery, useDeleteNoteMutation, useCreateNoteMutation } = notesApi
+export const { useGetAllNotesQuery, useGetNoteQuery, useDeleteNoteMutation, useCreateNoteMutation, useUpdateNoteMutation } = notesApi

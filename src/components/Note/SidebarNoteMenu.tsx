@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useCallback, useContext, useEffect } from "react"
+import { Dispatch, FC, MouseEvent, SetStateAction, useCallback, useContext, useEffect } from "react"
 import '../../styles/sidebar.scss'
 import { useDeleteNoteMutation } from "../../services/notesApi"
 import { CustomContext } from "../../context/UserContext"
@@ -33,9 +33,15 @@ const SidebarNoteMenu: FC<SidebarNoteMenuProps> = ({ x, y, showMenu, setShowMenu
 		}
 	}, [closeMenu, showMenu])
 
+	const handleEditNote = (e: MouseEvent<HTMLButtonElement>) => {
+		e.stopPropagation()
+		navigate(`/notes/${note.id}/edit`, { state: { note } })
+		setShowMenu(false)
+	}
+
 	return (
 		<div style={{ top: y, left: x }} className="sidebar__menu">
-			<button onClick={() => navigate(`notes/edit/${String(note.id)}`, {state: {note}})} type="button">Редактировать</button>
+			<button onClick={handleEditNote}>Редактировать</button>
 			<button onClick={() => deleteNote({ userId: String(user.user.id), noteId: String(note.id) })}>Удалить</button>
 			{folderId && (
 				<button onClick={() => deleteNoteFromFolder({ userId: String(user.user.id), folderId: folderId, noteId: String(note.id) })}>Удалить из папки</button>

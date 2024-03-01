@@ -1,7 +1,7 @@
 import { FC, ReactNode, MouseEventHandler } from "react"
 
 interface ControlItemProps {
-	isActive: boolean
+	isActive?: boolean
 	onToggle: (style: string) => void
 	style: string
 	children: ReactNode

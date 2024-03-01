@@ -1,16 +1,13 @@
 import { ReactNode } from 'react'
 import '../styles/main.scss'
+import { Outlet } from 'react-router-dom'
 
-interface NotebookProps {
-	children: ReactNode
-}
-
-const Notebook: React.FC<NotebookProps> = ({children}) => {
+const Notebook = () => {
 
 
 	return (
 		<div className='notebook'>
-			{children}
+			<Outlet />
 		</div>
 	)
 }

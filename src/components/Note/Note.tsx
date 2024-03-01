@@ -13,8 +13,7 @@ const Note = () => {
 
 	useEffect(() => {
 		if (note) {
-			const savedContent = note.content
-			const contentState: ContentState = convertFromRaw(JSON.parse(savedContent))
+			const contentState: ContentState = convertFromRaw(JSON.parse(note.content))
 			const html = stateToHTML(contentState)
 			const noteContent = document.getElementById('note-content')
 			if (noteContent) {

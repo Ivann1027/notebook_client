@@ -9,9 +9,7 @@ function Main() {
 	return (
 		<div className="main">
 			<Sidebar />
-			<Notebook>
-				<Outlet />
-			</Notebook>
+			<Notebook />
 		</div>
 	)
 }

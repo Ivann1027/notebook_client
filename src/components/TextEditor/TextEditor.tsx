@@ -2,7 +2,7 @@ import { ContentBlock, DraftBlockType, Editor, EditorState, Modifier, RichUtils,
 import 'draft-js/dist/Draft.css'
 import './editorStyles/editorStyles.css'
 import './editorStyles/editorStyleMap.scss'
-import { FC, useState, KeyboardEvent } from "react"
+import { FC, useState, KeyboardEvent, useEffect, Dispatch, SetStateAction } from "react"
 import BlockControls from "./BlockControls"
 import { BLOCK_TYPES, INLINE_STYLES, TEXT_COLORS } from "./editorSettings"
 import InlineControls from "./InlineControls"
@@ -10,15 +10,27 @@ import ColorControls from "./ColorControls"
 
 interface TextEditorProps {
 	onEditorStateChange: (editorState: EditorState) => void
+	isEditing?: boolean
+	setIsEditing?: Dispatch<SetStateAction<boolean>>
+	initialEditorState?: EditorState | undefined | null
 }
 
-const TextEditor: FC<TextEditorProps> = ({onEditorStateChange}) => {
+const TextEditor: FC<TextEditorProps> = ({onEditorStateChange, isEditing, setIsEditing, initialEditorState}) => {
 
 	const [editorState, setEditorState] = useState(EditorState.createEmpty())
 	const onChange = (newEditorState: EditorState) => {
 		setEditorState(newEditorState)
 		onEditorStateChange(newEditorState)
 	}
+
+	useEffect(() => {
+		if (isEditing && initialEditorState && setIsEditing) {
+			console.log(typeof isEditing)
+			console.log(typeof initialEditorState)
+			onChange(initialEditorState)
+			setIsEditing(false)
+		}
+	}, [initialEditorState, isEditing])
 
 	const handleKeyCommand = (command: string, editorState: EditorState): 'handled' | 'not-handled' => {
 		if (command === 'soft-newline') {
@@ -50,7 +62,7 @@ const TextEditor: FC<TextEditorProps> = ({onEditorStateChange}) => {
 		onChange(RichUtils.toggleInlineStyle(editorState, inlineType))
 	}
 	const toggleColor = (color: string) => {
-		onChange(RichUtils.toggleInlineStyle(editorState, 'COLOR-' + color.toUpperCase()))
+		onChange(RichUtils.toggleInlineStyle(editorState, `COLOR-${color.toUpperCase()}`))
 	}
 
 	return (
