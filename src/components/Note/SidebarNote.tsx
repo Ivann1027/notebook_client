@@ -7,8 +7,8 @@ import SidebarNoteMenu from './SidebarNoteMenu'
 
 interface SidebarNoteProps {
 	note: NoteT
-	folderNote: boolean
-	folderId: string
+	folderNote?: boolean
+	folderId?: string
 }
 
 const SidebarNote: FC<SidebarNoteProps> = ({ note, folderNote, folderId }) => {

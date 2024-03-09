@@ -12,7 +12,7 @@ interface SidebarNoteMenuProps {
 	showMenu: boolean
 	setShowMenu: Dispatch<SetStateAction<boolean>>
 	note: NoteT
-	folderId: string
+	folderId?: string
 }
 
 const SidebarNoteMenu: FC<SidebarNoteMenuProps> = ({ x, y, showMenu, setShowMenu, note, folderId}) => {
