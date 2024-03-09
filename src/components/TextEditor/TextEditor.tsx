@@ -25,8 +25,6 @@ const TextEditor: FC<TextEditorProps> = ({onEditorStateChange, isEditing, setIsE
 
 	useEffect(() => {
 		if (isEditing && initialEditorState && setIsEditing) {
-			console.log(typeof isEditing)
-			console.log(typeof initialEditorState)
 			onChange(initialEditorState)
 			setIsEditing(false)
 		}
